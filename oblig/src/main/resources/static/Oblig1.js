@@ -67,73 +67,74 @@ function formater(filmListe) {
     }
     $("#resultat").html(ut);
 }
+ function regBilett() {
+     let filmnavn = $("#valgtFilm").val();
+     let antall = $("#Antall").val();
+     let fornavn = $("#Fornavn").val();
+     let etternavn = $("#Etternavn").val();
+     let tlf = $("#Telefonnr").val();
+     let epost = $("#Epost").val();
 
+     $("#valgt_film, #tomt_Antall, #tomt_fornavn, #tomt_telefonnr, #tomt_Etternavn, #tomt_epost").text("").css('color','black');
 
-    function regBilett() {
-        let filmnavn = $("#valgtFilm").val();
-        let antall = $("#Antall").val();
-        let fornavn = $("#Fornavn").val();
-        let etternavn = $("#Etternavn").val();
-        let tlf = $("#Telefonnr").val();
-        let epost = $("#Epost").val();
+     const valgtFilm = $("#valgtFilm").val();
+     if(valgtFilm === "Velg film") {
+         $("#valgtfilmen").text("Velg en film");
+         event.preventDefault();
+         return;
+     }
+     filmnavn = valgtFilm;
 
-        $("#valgt_film, #tomt_Antall, #tomt_fornavn, #tomt_telefonnr, #tomt_Etternavn, #tomt_epost").text("").css('color','black');
+     const antallet = $("#Antall").val();
+     if(isNaN(antallet) || antallet <= 0) {
+         $("#tomt_Antall").text("Må skrive inn noe antall").css('color','red');
+         event.preventDefault();
+         return;
+     }
+     antall = antallet;
 
-        const valgtFilm = $("#valgtFilm").val();
-        if(valgtFilm === "Velg film") {
-            $("#valgtfilmen").text("Velg en film");
-            return;
-        }
-        filmnavn = valgtFilm;
+     const fornavnet = $("#Fornavn").val();
+     if(fornavnet === "") {
+         $("#tomt_fornavn").text("Må skrive inn noe i Fornavnet!").css('color','red');
+         event.preventDefault();
+         return;
+     }
+     fornavn = fornavnet;
 
-        const antallet = $("#Antall").val();
-        if(isNaN(antallet) || antallet <= 0) {
-            $("#tomt_Antall").text("Må skrive inn noe antall").css('color','red');
-            return;
-        }
-        antall = antallet;
+     const etternavnet = $("#Etternavn").val();
+     if(etternavnet === "") {
+         $("#tomt_Etternavn").text("Må skrive inn noe i Etternavnet").css('color','red');
+         event.preventDefault();
+         return;
+     }
+     etternavn = etternavnet;
 
-        const fornavnet = $("#Fornavn").val();
-        if(fornavnet === "") {
-            $("#tomt_fornavn").text("Må skrive inn noe i Fornavnet!").css('color','red');
-            return;
-        }
-        fornavn = fornavnet;
+     const telefonnummeret = $("#Telefonnr").val();
+     if(telefonnummeret === "" || isNaN(telefonnummeret) || telefonnummeret.length !== 8) {
+         $("#tomt_telefonnr").text("Må skrive et gyldig telefonnr på 8 siffer").css('color','red');
+         event.preventDefault();
+         return;
+     }
 
-        const etternavnet = $("#Etternavn").val();
-        if(etternavnet === "") {
-            $("#tomt_Etternavn").text("Må skrive inn noe i Etternavnet").css('color','red');
-            return;
-        }
+     tlf = telefonnummeret;
 
-
-        etternavn = etternavnet;
-
-        const telefonnummeret = $("#Telefonnr").val();
-        if(telefonnummeret === "" || isNaN(telefonnummeret) || telefonnummeret.length !== 8) {
-            $("#tomt_telefonnr").text("Må skrive et gyldig telefonnr på 8 siffer").css('color','red');
-            return;
-        }
-
-        tlf = telefonnummeret;
-
-        const eposten = $("#Epost").val();
-        if(eposten === "" || eposten.indexOf("@") == -1) {
-            $("#tomt_epost").text("Skriv inn en gyldig e-postadresse").css('color','red');
-            return;
-        }
-        epost = eposten;
-
-
-        const film = {
-            filmnavn : filmnavn,
-            antall : antall,
-            fornavn : fornavn,
-            etternavn : etternavn,
-            tlf : tlf,
-            epost : epost
-        };
-        lagreBilett(film);
-        hentFilmer();
-        $('input').val('');
-    }
+     const eposten = $("#Epost").val();
+     const epostRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     if (!epostRegex.test(eposten)) {
+         $("#tomt_epost").text("Skriv inn en gyldig e-postadresse").css('color', 'red');
+         event.preventDefault();
+         return;
+     }
+     epost = eposten;
+     const film = {
+         filmnavn : filmnavn,
+         antall : antall,
+         fornavn : fornavn,
+         etternavn : etternavn,
+         tlf : tlf,
+         epost : epost
+     };
+     lagreBilett(film);
+     hentFilmer();
+     $('input').val('');
+ }
