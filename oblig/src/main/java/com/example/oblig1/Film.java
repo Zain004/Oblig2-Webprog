@@ -1,18 +1,13 @@
 package com.example.oblig1;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Film {
     private String filmnavn;
-    public Film(String filmnavn) {
 
-        this.filmnavn = filmnavn;
-    }
-
-    public String getFilmnavn() {
-
-        return filmnavn;
-    }
-
-    public void setFilmnavn(String filmnavn) {
-        this.filmnavn = filmnavn;
-    }
 }

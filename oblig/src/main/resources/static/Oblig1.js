@@ -23,7 +23,20 @@ function formaterFilmer(filmer) {
     ut+="</select>";
     $("#Velgfilm").html(ut);
 }
+/*
+// Denne funker kun hvis du gjør et get call på
+// objektene, noe som jeg ikke har valgt å gjøre
+// denne gangen men å legge de inn i obligControlleren
+ function formaterFilmer(filmer) {
+     let html = "<select id='valgtFilm'/>";
+     for (const enfilm of filmer) {
+         html += "<option>" + enfilm.filmnavn +"</option>"
+     }
+     html += "</select>";
+     $("#Velgfilm").html(html);
+ }
 
+ */
 function Antall(innData) {
         const tall = parseInt(innData);
         if(isNaN(innData) || innData <= 0) {
